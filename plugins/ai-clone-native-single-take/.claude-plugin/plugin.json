@@ -1,0 +1,7 @@
+{
+  "name": "ai-clone-native-single-take",
+  "version": "1.0.0",
+  "description": "AI 數字人原生單片完美生產系統。輸入中文文案，全自動產出零瑕疵數字人母帶（本人的臉、本人的克隆聲音、手自然動、嘴型準、無多手無殘影無爆光斑），可直接進 B-roll／剪輯層。內含五層管線、全閘稽核、幀級修補、16 輪死路總表與成本模型。",
+  "author": { "name": "陳柏維 Allen" },
+  "keywords": ["ai-avatar","digital-human","heygen","avatar-iv","minimax","video-pipeline","數字人","口播"]
+}

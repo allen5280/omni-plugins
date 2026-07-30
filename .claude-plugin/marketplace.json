@@ -1,0 +1,11 @@
+{
+  "name": "omni-plugins",
+  "owner": { "name": "陳柏維 Allen" },
+  "plugins": [
+    {
+      "name": "ai-clone-native-single-take",
+      "source": "./plugins/ai-clone-native-single-take",
+      "description": "AI 數字人原生單片完美生產系統：文案 → 克隆配音 → Avatar IV → 全閘稽核 → 幀級修補 → 零瑕疵母帶"
+    }
+  ]
+}

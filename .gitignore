@@ -1,0 +1,20 @@
+# ── 絕不進 git（金鑰紅線）──
+config/api_keys.txt
+api_keys.txt
+*.env
+.env*
+*.pem
+*.key
+credentials*
+secrets*
+
+# ── 產出物 / 暫存 ──
+out/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.mp4
+*.mov
+*.wav
+*.mp3
