@@ -1,0 +1,7 @@
+{
+  "name": "motion-fx-library",
+  "version": "1.0.0",
+  "description": "最高質感動畫特效資料庫＋4K 逐幀渲染器。30 個逐幀拆解的特效（構成、時間、用途、做法）、節拍與殼層骨架、片尾 CTA 留言卡、真人口播 30% 混剪規則；9 個特效已實作，可一行指令輸出 2160×3840 影片。附參考片拆解工具，資料庫可持續擴充。",
+  "author": { "name": "陳柏維 Allen" },
+  "keywords": ["motion-graphics", "b-roll", "short-video", "playwright", "ffmpeg", "動畫特效", "短影音", "字卡", "片尾CTA"]
+}

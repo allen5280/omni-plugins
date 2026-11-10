@@ -1,0 +1,20 @@
+{
+  "_說明": "每個鍵 = 一個可直接渲染的範例參數。文字全部換成當支影片的口播關鍵字即可。swapAt = 中途換字的秒數，next = 換上去的欄位。",
+  "speed_echo_number": {
+    "label": "車齡", "value": "2.5", "sub": "原廠保養", "tag": "FULL RECORD", "caption": "現在看到這整支影片",
+    "color": "#3FE0D0", "swapAt": 0.7,
+    "next": { "label": "里程", "value": "3.2", "sub": "萬公里內", "tag": "LOW MILEAGE", "caption": "100%完全都是 Claude 幫我自己剪出來的" }
+  },
+  "giant_numeral": {
+    "bg": "#5CF25A", "ink": "#103D1F", "kicker": "食材成本佔比", "value": "48", "unit": "%",
+    "ticks": ["一月", "二月", "三月", "四月"], "at": 0, "caption": "可能真的快失業了",
+    "swapAt": 0.7, "next": { "value": "41", "at": 1, "caption": "你現在看到這整支影片" }
+  },
+  "spec_dossier": { "index": "05 拆開來看", "file": "policy.pdf", "meta": "20 年期 · 年繳 · 38 頁", "word": "保單", "footer": "// 白紙黑字 都在這裡", "caption": "" },
+  "slots_counter": { "label": "本月名額還剩", "from": 36, "to": 13, "caption": "我更不用每一支影片都花好幾千塊" },
+  "neon_chapter": { "chips": ["預算", "看車", "交車"], "active": 0, "title": "先算預算", "question": "每個月能付多少", "kicker": "預算", "caption": "可能真的快失業了" },
+  "stamp_steps": { "kicker": "// 步驟 1 · 看屋", "h1": "買房就這五步", "h2": "做完就蓋章", "steps": [["1", "看屋"], ["2", "出價"]], "swapAt": 0.5, "caption": "如果你想要使用這套系統" },
+  "porcelain_dial": { "kicker": "十年來的客人", "label": "回診人次", "value": 17450, "foot": "定期回訪" },
+  "light_blade_sting": { "top": "本週 全新開幕", "topSub": "NOW OPEN", "glyph": "M", "brand": "森日髮廊", "tagline": "預約制 一人一室" },
+  "cta_comment": { "verb": "留言", "keyword": "動畫", "reply": "30 個特效都在這套系統裡", "link": "打開連結" }
+}

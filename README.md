@@ -24,6 +24,7 @@ claude plugin list
 | Plugin | 說明 |
 |---|---|
 | `ai-clone-native-single-take` | AI 數字人原生單片完美生產系統（五層管線＋全閘＋幀修補＋成本模型） |
+| `motion-fx-library` | 最高質感動畫特效資料庫＋4K 逐幀渲染器（30 個逐幀拆解特效、9 個已實作） |
 
 ### ai-clone-native-single-take
 
@@ -46,6 +47,25 @@ HEYGEN_API_KEY=
 MINIMAX_API_KEY=
 MINIMAX_VOICE_ID_DJI_CLONE=
 ```
+
+### motion-fx-library
+
+把爆款參考片逐幀拆解成可重複使用的特效資料庫，並用 Playwright＋ffmpeg 逐幀渲染成 2160×3840 的特效片段，交給剪輯層排上時間軸。
+
+```bash
+/plugin install motion-fx-library@omni-plugins
+
+node scripts/render_fx.js --list
+node scripts/render_fx.js --fx giant_numeral --params @scripts/fx_presets.json#giant_numeral --out out/numeral.mp4
+python3 scripts/teardown.py 參考片.mp4 out/teardown
+```
+
+| 內容 | 數量 |
+|---|---|
+| 逐幀拆解的特效 | 30（9 個已實作可直接出片，21 個附做法） |
+| 參考文件 | 4（特效資料庫／節拍與殼層／真人口播混剪規則／使用輪替紀錄） |
+
+需要：node ≥ 18、playwright（含 chromium）、ffmpeg、Pillow。不需要任何金鑰。
 
 ## 授權
 
