@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>快樂四開關 4K 母帶下載</title>
+<style>
+  :root { --bg:#0A0B10; --panel:#14161F; --gold:#F1D9A3; --gold2:#C9A24F; --text:#F4F3F6; --soft:#D9D7DE; --ok:#8FE3A8; --err:#FF9A8F; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; background:radial-gradient(1200px 700px at 50% 0%, #1B1A14 0%, var(--bg) 60%); color:var(--text);
+         font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",system-ui,sans-serif; display:flex; align-items:center; justify-content:center; padding:24px 16px; }
+  main { width:100%; max-width:640px; background:var(--panel); border:1px solid rgba(241,217,163,.28); border-radius:18px; padding:32px 28px; }
+  h1 { margin:0 0 6px; font-size:28px; color:var(--gold); letter-spacing:1px; }
+  .sub { margin:0 0 24px; color:var(--soft); font-size:15px; line-height:1.7; }
+  button { width:100%; border:0; border-radius:12px; padding:18px 16px; font-size:20px; font-weight:700; cursor:pointer;
+           color:#17130A; background:linear-gradient(180deg,#F7E4B4,#DCB877); }
+  button:disabled { cursor:default; opacity:.55; }
+  .bar { height:14px; border-radius:7px; background:#23252F; overflow:hidden; margin:22px 0 10px; }
+  .bar > i { display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--gold2),var(--gold)); transition:width .15s linear; }
+  #status { min-height:26px; font-size:16px; color:var(--text); }
+  #status.ok { color:var(--ok); } #status.err { color:var(--err); }
+  ol { margin:22px 0 0; padding-left:22px; color:var(--soft); font-size:15px; line-height:1.9; }
+  ol b { color:var(--text); }
+  .note { margin-top:18px; font-size:13px; color:var(--soft); line-height:1.7; }
+</style>
+</head>
+<body>
+<main>
+  <h1>快樂四開關｜4K 母帶</h1>
+  <p class="sub">2160×3840・H.264・45.7 Mbps・538.8 MB・未壓縮的最高規格。<br>按下面的按鈕，瀏覽器會存成<b>一個 mp4 檔</b>到你的「下載」資料夾。</p>
+  <button id="go">下載 4K 母帶（538.8 MB）</button>
+  <div class="bar"><i id="fill"></i></div>
+  <div id="status">尚未開始</div>
+  <ol>
+    <li>下載完成後，檔名是 <b>Happy4_4K_Master.mp4</b>。</li>
+    <li>打開剪映 → <b>開始創作</b> → 把這個 mp4 拖進去，再拖到時間軸，就可以直接編輯。</li>
+    <li>匯出時選 <b>4K、24fps、碼率「更高」</b>。</li>
+  </ol>
+  <p class="note">下載過程請不要關閉這個分頁。這個頁面會逐段核對檔案指紋，確認與原檔完全相同才存檔。</p>
+</main>
+<script>
+const BASE = 'https://d2ol7oe51mr4n9.cloudfront.net/user_3CntHbWAvYk50Y6SFAKoExN8bS4/';
+const PARTS = [
+  { id:'dcb007a4-4927-4334-aca6-7dffc1f0bfe8', size:141557760, sha:'febd1908eda327c9a365f709032b2e76c8cec4f7fb5c3591c9d44981ad6c62b8' },
+  { id:'56f716f7-d183-4677-b795-4e58dbd7171e', size:141557760, sha:'55708d51412ffc375ec6d498ede84347cf3ae7ec89918ef8d7fb6568a380bf9f' },
+  { id:'f64a5f82-aac7-4ce3-92c0-bc4155b04b49', size:141557760, sha:'a72e91fa113bbc17844c466a62f91b5018463006f8409bf09ffe89db796583b1' },
+  { id:'877b5ff6-b7a3-4f41-abdf-71f0b6754123', size:114082164, sha:'1151d9ca3ce6f34c8f82ff9f83ea4dd6dc8fb665825f73f007bf1215ae4671bd' },
+];
+const TOTAL = PARTS.reduce((a, p) => a + p.size, 0);
+const NAME = 'Happy4_4K_Master.mp4';
+const $ = id => document.getElementById(id);
+const setStatus = (t, cls) => { $('status').textContent = t; $('status').className = cls || ''; };
+const mb = n => (n / 1048576).toFixed(0);
+const hex = buf => Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+async function fetchPart(p, idx, doneBefore) {
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(BASE + p.id + '.zip', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const reader = res.body.getReader();
+      const chunks = []; let got = 0;
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value); got += value.length;
+        $('fill').style.width = ((doneBefore + got) / TOTAL * 100).toFixed(1) + '%';
+        setStatus('下載中　第 ' + (idx + 1) + ' / ' + PARTS.length + ' 段　' + mb(doneBefore + got) + ' / ' + mb(TOTAL) + ' MB');
+      }
+      if (got !== p.size) throw new Error('大小不符');
+      const blob = new Blob(chunks);
+      if (window.crypto && crypto.subtle) {
+        setStatus('核對第 ' + (idx + 1) + ' 段指紋…');
+        const h = hex(await crypto.subtle.digest('SHA-256', await blob.arrayBuffer()));
+        if (h !== p.sha) throw new Error('指紋不符');
+      }
+      return blob;
+    } catch (e) {
+      if (attempt === 3) throw e;
+      setStatus('第 ' + (idx + 1) + ' 段重試中（' + e.message + '）…');
+      await new Promise(r => setTimeout(r, 1500));
+    }
+  }
+}
+
+async function run() {
+  $('go').disabled = true;
+  try {
+    const blobs = []; let done = 0;
+    for (let i = 0; i < PARTS.length; i++) { blobs.push(await fetchPart(PARTS[i], i, done)); done += PARTS[i].size; }
+    setStatus('合併成一個檔案…');
+    const file = new Blob(blobs, { type: 'video/mp4' });
+    if (file.size !== TOTAL) throw new Error('合併後大小不符');
+    const url = URL.createObjectURL(file);
+    const a = document.createElement('a');
+    a.href = url; a.download = NAME; document.body.appendChild(a); a.click(); a.remove();
+    window.__done = { size: file.size };
+    $('fill').style.width = '100%';
+    setStatus('完成：' + NAME + ' 已存到「下載」資料夾（538.8 MB，與原檔逐位元相同）', 'ok');
+    $('go').textContent = '再存一次'; $('go').disabled = false;
+    $('go').onclick = () => { const b = document.createElement('a'); b.href = url; b.download = NAME; document.body.appendChild(b); b.click(); b.remove(); };
+  } catch (e) {
+    window.__error = String(e && e.message || e);
+    setStatus('下載失敗：' + window.__error + '。請檢查網路後再按一次。', 'err');
+    $('go').disabled = false;
+  }
+}
+$('go').onclick = run;
+</script>
+</body>
+</html>
